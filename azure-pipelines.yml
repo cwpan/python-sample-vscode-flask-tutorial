@@ -5,7 +5,13 @@
 
 trigger:
 - master
-
+pool:
+  vmImage: ubuntu-latest
+strategy:
+  matrix:
+    Python37:
+      python.version: '3.7'
+container:
 steps:
 - task: UsePythonVersion@0
   inputs:
@@ -13,9 +19,6 @@ steps:
   displayName: 'Use Python $(python.version)'
 
 - script: |
-  
-    python -m venv antenv
-    source antenv/bin/activate
     python -m pip install --upgrade pip
     pip install -r requirements.txt
   displayName: 'Install dependencies'
